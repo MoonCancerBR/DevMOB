@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent">#FF4081</color>        <!-- Rosa acentuado -->
+    <color name="base">#FF9800</color>        <!-- Rosa acentuado -->
+    <color name="background">#F8F9FA</color>    <!-- Fundo -->
+    <color name="black">#000000</color>         <!-- Preto -->
+    <color name="gray">#777777</color>         <!-- Preto -->
+    <color name="color_alert">#FF0000</color>
+    <color name="transparent">#00FFFFFF</color>
+    <!-- Tons Textos-->
+    <color name="textPrimary">#212121</color>        <!-- Texto primário (preto) -->
+    <color name="textSecondary">#6E6E6E</color>      <!-- Texto secundário (cinza médio) -->
+    <color name="textTertiary">#BDBDBD</color>       <!-- Texto terciário (cinza claro) -->
+    <!-- Tons primarios -->
+    <color name="primary">#009AD5</color>         <!-- Azul primário -->
+    <color name="primaryDark">#007FAA</color>     <!-- Azul escuro -->
+    <color name="primaryLight">#B3E5FC</color>    <!-- Azul claro -->
+    <!-- Tons secundários -->
+    <color name="secondary">#4FBB9E</color>       <!-- Verde secundário -->
+    <color name="secondaryDark">#3C8B77</color>   <!-- Verde escuro -->
+    <color name="secondaryLight">#A3D9C1</color>  <!-- Verde claro -->
+    <!-- Cores de notificações -->
+    <color name="info">#2196F3</color>      <!-- Azul para notificações -->
+    <color name="warning">#FFC107</color>    <!-- Amarelo para notificações -->
+    <color name="alert">#F44336</color>        <!-- Vermelho para notificações -->
+    <!-- Tons de branco -->
+    <color name="white_opaque">#30FFFFFF</color>         <!-- transparente Branco -->
+    <color name="white">#FFFFFF</color>         <!-- Branco -->
+    <color name="whiteSecondary">#F8F8F8</color>             <!-- Branco secundário -->
+    <color name="whiteTertiary">#F0F0F0</color>              <!-- Branco terciário -->
+</resources>
