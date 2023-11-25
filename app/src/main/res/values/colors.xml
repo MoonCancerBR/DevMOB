@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="accent">#FF4081</color>        <!-- Rosa acentuado -->
+    <color name = "blue">#008080</color>
+    <color name = "NewBlue">#00BCD5</color>
     <color name="base">#FF9800</color>        <!-- Rosa acentuado -->
     <color name="background">#F8F9FA</color>    <!-- Fundo -->
     <color name="black">#000000</color>         <!-- Preto -->
@@ -28,4 +30,7 @@
     <color name="white">#FFFFFF</color>         <!-- Branco -->
     <color name="whiteSecondary">#F8F8F8</color>             <!-- Branco secundário -->
     <color name="whiteTertiary">#F0F0F0</color>              <!-- Branco terciário -->
+    <color name="colorPrimary">#2b3744</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">	#565554</color>
 </resources>

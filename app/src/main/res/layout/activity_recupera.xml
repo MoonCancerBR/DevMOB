@@ -1,9 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".RecuperaActivity">
+        tools:context=".ui.RecuperaActivity"
+        android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.cardview.widget.CardView
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center"
+            android:fadingEdge="horizontal|vertical"
+            app:cardElevation="1dp"
+            app:cardCornerRadius="1dp">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:text="Recuperar Senha"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="25dp"
+                    android:layout_marginEnd="15dp"
+                    android:textSize="20dp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColorHint="#FF0015"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:hint="Email"
+                    app:counterTextColor="@android:color/background_light"
+                    app:hintTextColor="@android:color/background_light"
+                    app:boxBackgroundColor="@android:color/holo_blue_light">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/gmail"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/background_light"
+                        android:textColorHint="#FF0015"
+                        android:textColorLink="@android:color/background_light"
+                        android:singleLine="true"
+                        android:gravity="center_horizontal"
+                        android:inputType="textEmailAddress"
+                        android:theme="@android:color/background_light"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.skydoves.elasticviews.ElasticCheckButton
+                    android:id="@+id/btnRecuperar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/holo_blue_light"
+                    android:text="Recuperar Senha"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_centerHorizontal="true"
+                    app:checkButton_cornerRadius="4dp"
+                    app:checkButton_alpha="0.7"
+                    app:checkButton_duration="400"
+                    app:checkButton_scale="0.9"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.core.widget.NestedScrollView>

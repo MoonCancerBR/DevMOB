@@ -1,7 +1,8 @@
-package br.com.ufc.metafit
+package br.com.ufc.metafit.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import br.com.ufc.metafit.R
 
 class RecuperaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
