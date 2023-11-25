@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "592303734038",
+    "project_id": "mobile-740f9",
+    "storage_bucket": "mobile-740f9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592303734038:android:4782b01fe9ef94e757a437",
+        "android_client_info": {
+          "package_name": "br.com.ufc.metafit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkRs34AU_70awsHIvVInt3WFTTKyPgnJE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
