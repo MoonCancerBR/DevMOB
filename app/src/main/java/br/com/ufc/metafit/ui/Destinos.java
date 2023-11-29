@@ -4,15 +4,15 @@ public class Destinos {
 
     private Double latitud;
     private Double longitud;
-    private Double codigo;
-    private Double bilhete;
-    private Double telefone;
+    private String codigo;
+    private String bilhete;
+    private String telefone;
 
     public Destinos() {
         super();
     }
 
-    public Destinos(Double latitud, Double longitud, Double codigo, Double bilhete, Double telefone) {
+    public Destinos(Double latitud, Double longitud, String codigo, String bilhete, String telefone) {
         this.latitud = latitud;
         this.longitud = longitud;
         this.codigo = codigo;
@@ -36,27 +36,27 @@ public class Destinos {
         this.longitud = longitud;
     }
 
-    public Double getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(Double codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
-    public Double getBilhete() {
+    public String getBilhete() {
         return bilhete;
     }
 
-    public void setBilhete(Double bilhete) {
+    public void setBilhete(String bilhete) {
         this.bilhete = bilhete;
     }
 
-    public Double getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(Double telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 }

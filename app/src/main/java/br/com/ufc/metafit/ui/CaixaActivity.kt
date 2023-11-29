@@ -69,7 +69,7 @@ class CaixaActivity : AppCompatActivity() {
                 StyleableToast.makeText(applicationContext,"Insira um telefone",Toast.LENGTH_LONG,R.style.AllStyles).show()
             }
             else{
-                val destinos = Destinos(latitud.toDouble(), logitud.toDouble(), codigo.toDouble(), bilhete.toDouble(), telefone.toDouble())
+                val destinos = Destinos(latitud.toDouble(), logitud.toDouble(), codigo, bilhete, telefone)
                 databaseReference.child("destinos").child(codigo).setValue(destinos)
                 StyleableToast.makeText(applicationContext,"Dados enviados com sucesso",Toast.LENGTH_LONG,R.style.AllStyles).show()
                 val i = Intent(this@CaixaActivity, MenuActivity::class.java)

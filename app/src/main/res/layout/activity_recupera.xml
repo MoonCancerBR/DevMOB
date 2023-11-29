@@ -67,7 +67,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.skydoves.elasticviews.ElasticCheckButton
-                    android:id="@+id/btnRecuperar"
+                    android:id="@+id/recuperar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/holo_blue_light"

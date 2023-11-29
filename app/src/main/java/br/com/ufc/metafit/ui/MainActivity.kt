@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.ActionBar
 import android.view.WindowManager
 import br.com.ufc.metafit.R
 import android.content.pm.ActivityInfo
@@ -16,8 +15,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportActionBar?.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM)
-        supportActionBar?.setCustomView(R.layout.text_titulo)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 
         window.setFlags(

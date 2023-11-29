@@ -3,7 +3,6 @@ package br.com.ufc.metafit.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.ActionBar
 import androidx.cardview.widget.CardView
 import br.com.ufc.metafit.R
 
@@ -17,9 +16,6 @@ class MenuActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
-
-        supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        supportActionBar?.customView = layoutInflater.inflate(R.layout.text_titulo, null)
 
         caixa = findViewById(R.id.idcard1)
         admin = findViewById(R.id.idcard2)

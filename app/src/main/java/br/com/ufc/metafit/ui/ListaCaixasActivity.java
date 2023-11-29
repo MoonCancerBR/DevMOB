@@ -1,63 +1,69 @@
-package br.com.ufc.metafit.ui
+package br.com.ufc.metafit.ui;
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.view.LayoutInflater
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import br.com.ufc.metafit.R
-import com.firebase.ui.database.FirebaseRecyclerAdapter
-import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import android.view.ViewGroup
-class ListaCaixasActivity : AppCompatActivity() {
-    lateinit var recyclerView: RecyclerView
-    lateinit var adapter: FirebaseRecyclerAdapter<Destinos, DestinosAdapter.ViewHolder>
-    lateinit var databaseReference: DatabaseReference
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_lista_caixas)
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-        databaseReference = FirebaseDatabase.getInstance().getReference()
-        recyclerView = findViewById(R.id.reciclerView)
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-        val linearLayoutManager = LinearLayoutManager(this)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        recyclerView.layoutManager = linearLayoutManager
+import java.util.List;
 
-        val options = FirebaseRecyclerOptions.Builder<Destinos>()
-            .setQuery(databaseReference.child("destinos"), Destinos::class.java)
-            .build()
+import br.com.ufc.metafit.R;
 
-        adapter = object : FirebaseRecyclerAdapter<Destinos, DestinosAdapter.ViewHolder>(options) {
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DestinosAdapter.ViewHolder {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.destinos, parent, false)
-                return DestinosAdapter.ViewHolder(view)
+public class ListaCaixasActivity extends AppCompatActivity{
+
+
+    RecyclerView recyclerView;
+    List<Destinos> destinosList;
+    FirebaseRecyclerAdapter<Destinos,DestinosAdapter.ViewHolder> adapter;
+    DatabaseReference databaseReference;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_lista_caixas);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        recyclerView = (RecyclerView) findViewById(R.id.reciclerView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        FirebaseRecyclerOptions<Destinos> options =
+                new FirebaseRecyclerOptions.Builder<Destinos>()
+                        .setQuery(databaseReference.child("destinos"), Destinos.class)
+                        .build();
+
+        adapter = new FirebaseRecyclerAdapter<Destinos, DestinosAdapter.ViewHolder>(options) {
+            @NonNull
+            @Override
+            public DestinosAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.destinos, parent, false);
+                return new DestinosAdapter.ViewHolder(view);
             }
 
-            override fun onBindViewHolder(holder: DestinosAdapter.ViewHolder, position: Int, model: Destinos) {
-                holder.codigo.text = model.codigo.toString()
-                holder.telefone.text = model.telefone.toString()
-
-                holder.eliminar.setOnClickListener {
-                    // Lógica para remover o item do Firebase
-                    getRef(position).removeValue()
-                }
+            @Override
+            protected void onBindViewHolder(@NonNull DestinosAdapter.ViewHolder viewHolder, int position, @NonNull Destinos destinos) {
+                viewHolder.codigo.setText(String.valueOf(destinos.getCodigo()));
+                viewHolder.telefone.setText(String.valueOf(destinos.getTelefone()));
+                viewHolder.eliminar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int adapterPosition = viewHolder.getAbsoluteAdapterPosition();
+                        if (adapterPosition != RecyclerView.NO_POSITION) {
+                            adapter.getRef(adapterPosition).removeValue();
+                        }
+                    }
+                });
             }
-        }
-
-        recyclerView.adapter = adapter
-    }
-
-    override fun onStart() {
-        super.onStart()
-        adapter.startListening()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        adapter.stopListening()
+        };
+        recyclerView.setAdapter(adapter);
     }
 }

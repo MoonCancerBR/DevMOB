@@ -57,6 +57,8 @@
     <string name="user_menu_settings">Configurações</string>
     <string name="user_menu_about">Sobre</string>
     <string name="user_menu_logoff">Sair</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_maps2">MapsActivity2</string>
 
 
 </resources>

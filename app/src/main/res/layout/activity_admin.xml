@@ -125,7 +125,7 @@
                     app:checkButton_scale="0.9"/>
 
             <com.skydoves.elasticviews.ElasticCheckButton
-                    android:id="@+id/recuperarsenha"
+                    android:id="@+id/recuperar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/black"
