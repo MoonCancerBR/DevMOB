@@ -42,7 +42,7 @@ public class MenuAdmActivity extends AppCompatActivity {
         caixa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MenuAdmActivity.this, ListaCaixasActivity.class);
+                Intent i = new Intent(MenuAdmActivity.this, MapsActivity.class);
                 startActivity(i);
             }
         });
