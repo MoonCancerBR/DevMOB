@@ -69,5 +69,19 @@ public class ListaCaixasActivity extends AppCompatActivity{
     private void configurarAdapter() {
         DestinosAdapter adapter = new DestinosAdapter(this,ListaCaixasActivity.destinosList);
         recyclerView.setAdapter(adapter);
+        //listaCaixa
+        adapter.setOnDeleteClickListener(new DestinosAdapter.OnDeleteClickListener() {
+            @Override
+            public void onDeleteClick(int position) {
+                // Remova o item da lista
+                Destinos destinoRemovido = ListaCaixasActivity.destinosList.remove(position);
+
+                // Atualize o RecyclerView
+                adapter.notifyItemRemoved(position);
+
+                // Remova do Firebase, substitua "chaveDoDestino" pela chave do item no Firebase
+                databaseReference.child("destinos").child(destinoRemovido.getCodigo()).removeValue();
+            }
+        });
     }
 }

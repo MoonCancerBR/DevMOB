@@ -16,7 +16,15 @@ import java.util.List;
 import br.com.ufc.metafit.R;
 
 public class DestinosAdapter extends RecyclerView.Adapter<DestinosAdapter.ViewHolder> {
+    public interface OnDeleteClickListener {
+        void onDeleteClick(int position);
+    }
     List<Destinos> destinos;
+    private OnDeleteClickListener onDeleteClickListener;
+
+    public void setOnDeleteClickListener(OnDeleteClickListener listener) {
+        this.onDeleteClickListener = listener;
+    }
     Context context;
     public DestinosAdapter(Context context, List<Destinos> destinos){
         this.context = context;
@@ -33,6 +41,15 @@ public class DestinosAdapter extends RecyclerView.Adapter<DestinosAdapter.ViewHo
     public void onBindViewHolder(@NonNull DestinosAdapter.ViewHolder holder, int position){
         holder.codigo.setText(destinos.get(position).getCodigo());
         holder.telefone.setText(destinos.get(position).getTelefone());
+        holder.eliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int adapterPosition = holder.getAbsoluteAdapterPosition();
+                if (onDeleteClickListener != null) {
+                    onDeleteClickListener.onDeleteClick(adapterPosition);
+                }
+            }
+        });
     }
     @Override
     public int getItemCount(){
