@@ -1,13 +1,14 @@
 package br.com.ufc.metafit.ui
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
@@ -21,11 +22,11 @@ class MenuActivity : AppCompatActivity() {
     private lateinit var admin: CardView
     private lateinit var ofertas: CardView
     private lateinit var condicoes: CardView
+    private var alerta: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
-
 
         caixa = findViewById(R.id.idcard1)
         admin = findViewById(R.id.idcard2)
@@ -47,16 +48,34 @@ class MenuActivity : AppCompatActivity() {
         condicoes.setOnClickListener {
             startActivity(Intent(this, RulerActivity::class.java))
         }
+
+        getAlertaNotGps()
+    }
+
+    private fun getAlertaNotGps() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("Ative o GPS")
+            .setCancelable(false)
+            .setIcon(R.drawable.map)
+            .setTitle("GPS")
+            .setPositiveButton("Sim") { _, _ ->
+                startActivity(Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.cancel()
+            }
+        alerta = builder.create()
+        alerta?.show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return true
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.phone -> {
-                //alterações
                 val permissao = ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
                 if (permissao != PackageManager.PERMISSION_GRANTED) {
                     StyleableToast.makeText(
@@ -77,7 +96,6 @@ class MenuActivity : AppCompatActivity() {
                 return true
             }
             R.id.zap -> {
-                // Alterações
                 val numero = "5585992997887"
                 val uri = Uri.parse("https://api.whatsapp.com/send?phone=$numero")
                 val i = Intent(Intent.ACTION_VIEW, uri)
@@ -85,7 +103,6 @@ class MenuActivity : AppCompatActivity() {
                 return true
             }
             R.id.termos -> {
-                // Lógica para lidar com a seleção do item de termos
                 val uri = Uri.parse("https://politicasadefinir.000webhostapp.com/")
                 val i = Intent(Intent.ACTION_VIEW, uri)
                 startActivity(i)
