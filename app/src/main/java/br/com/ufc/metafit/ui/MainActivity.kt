@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.WindowManager
 import br.com.ufc.metafit.R
 import android.content.pm.ActivityInfo
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity() {
     private val DURA_SPLASH = 6000L
@@ -14,6 +16,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        // Inicialização do Firebase
+        FirebaseApp.initializeApp(this)
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 
