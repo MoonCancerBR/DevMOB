@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-  
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+            app:showAsAction="always"
+            android:icon="@drawable/phone"
+            android:id="@+id/phone"
+            android:title="Chamada" />
+
+    <item
+            app:showAsAction="always"
+            android:icon="@drawable/zap"
+            android:id="@+id/zap"
+            android:title="Chamada" />
+
+    <item
+            android:checked="true"
+            android:icon="@drawable/zap"
+            android:id="@+id/termos"
+            android:title="Termos e Condições" />
+
 </menu>

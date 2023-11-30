@@ -10,6 +10,7 @@ import android.content.pm.ActivityInfo
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.FirebaseDatabase
 
+
 class MainActivity : AppCompatActivity() {
     private val DURA_SPLASH = 6000L
 
