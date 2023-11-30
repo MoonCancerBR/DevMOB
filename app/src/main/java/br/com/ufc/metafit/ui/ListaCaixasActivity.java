@@ -10,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +26,8 @@ public class ListaCaixasActivity extends AppCompatActivity{
 
     RecyclerView recyclerView;
     public static List<Destinos> destinosList = new ArrayList<Destinos>();
-    FirebaseRecyclerAdapter<Destinos,DestinosAdapter.ViewHolder> adapter;
+    //FirebaseRecyclerAdapter<Destinos,DestinosAdapter.ViewHolder> adapter;
+    DestinosAdapter adapter;
     DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,36 +67,7 @@ public class ListaCaixasActivity extends AppCompatActivity{
         });
     }
     private void configurarAdapter() {
-        FirebaseRecyclerOptions<Destinos> options =
-                new FirebaseRecyclerOptions.Builder<Destinos>()
-                        .setQuery(databaseReference.child("destinos"), Destinos.class)
-                        .build();
-
-        adapter = new FirebaseRecyclerAdapter<Destinos, DestinosAdapter.ViewHolder>(options) {
-            @NonNull
-            @Override
-            public DestinosAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.destinos, parent, false);
-                return new DestinosAdapter.ViewHolder(view);
-
-            }
-
-            @Override
-            protected void onBindViewHolder(@NonNull DestinosAdapter.ViewHolder viewHolder, int position, @NonNull Destinos destinos) {
-                viewHolder.codigo.setText(String.valueOf(destinos.getCodigo()));
-                viewHolder.telefone.setText(String.valueOf(destinos.getTelefone()));
-                viewHolder.eliminar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        int adapterPosition = viewHolder.getAbsoluteAdapterPosition();
-                        if (adapterPosition != RecyclerView.NO_POSITION) {
-                            adapter.getRef(adapterPosition).removeValue();
-                        }
-                    }
-                });
-            }
-        };
-
+        DestinosAdapter adapter = new DestinosAdapter(this,ListaCaixasActivity.destinosList);
         recyclerView.setAdapter(adapter);
     }
 }
