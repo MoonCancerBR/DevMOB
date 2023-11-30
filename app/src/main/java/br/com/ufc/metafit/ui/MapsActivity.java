@@ -33,10 +33,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.InstanceCreator;
 
+import java.util.ArrayList;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private LocationManager locationManager;
     private Location currentLocation;
+    private DatabaseReference databaseReference;
+    private ArrayList<Marker> temporalRealTimeMarkers = new ArrayList<>();
+    private ArrayList<Marker> realTimeMarkers = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -95,5 +101,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         };
         int permissao = ContextCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,locationListener);
+        databaseReference.child("destinos").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(Marker dest:realTimeMarkers){
+                    dest.remove();
+                }
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Destinos dt = snapshot.getValue(Destinos.class);
+                    Double latitud = dt.getLatitud();
+                    Double longitud = dt.getLongitud();
+                    String codigo = dt.getCodigo();
+                    String telefone = dt.getTelefone();
+                    String caixa = "N caitxa" + codigo;
+                    String telefone1 = "Tel." + telefone;
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(new LatLng(latitud,longitud)).title(caixa).snippet(telefone1)
+                            .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_entregas));
+                    temporalRealTimeMarkers.add(mMap.addMarker(markerOptions));
+                }
+                realTimeMarkers.clear();
+                realTimeMarkers.addAll(temporalRealTimeMarkers);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
