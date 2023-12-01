@@ -6,7 +6,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.AdminActivity"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/colorPrimary"
+        >
 
     <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
@@ -18,12 +20,14 @@
             android:layout_gravity="center"
             android:fadingEdge="horizontal|vertical"
             app:cardElevation="1dp"
-            app:cardCornerRadius="1dp">
+            app:cardCornerRadius="1dp"
+            >
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@color/colorAccent">
 
             <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="match_parent"
@@ -39,7 +43,7 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="#000"
+                    android:textColor="@color/white"
                     android:text="Insira suas informações"
                     android:textStyle="bold"
                     android:gravity="center"
@@ -54,13 +58,13 @@
                     android:layout_marginBottom="20dp"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:textColorHint="#ff15"
+                    android:textColorHint="@color/black"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:hint="Email"
                     app:counterTextColor="@color/background"
                     app:hintTextColor="@color/background"
-                    app:boxBackgroundColor="@color/blue">
+                    app:boxBackgroundColor="@color/gray">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -68,7 +72,7 @@
                         android:id="@+id/gmail"
                         android:textStyle="bold"
                         android:textColor="@color/background"
-                        android:textColorHint="#ff15"
+                        android:textColorHint="@color/black"
                         android:textColorLink="@color/background"
                         android:singleLine="true"
                         android:gravity="center_horizontal"
@@ -83,13 +87,13 @@
                     android:layout_marginBottom="20dp"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:textColorHint="#ff15"
+                    android:textColorHint="@color/black"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:hint="Senha"
                     app:counterTextColor="@color/background"
                     app:hintTextColor="#ffff"
-                    app:boxBackgroundColor="@color/blue">
+                    app:boxBackgroundColor="@color/gray">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -110,7 +114,7 @@
                     android:id="@+id/btnEnviar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/blue"
+                    android:background="@color/black"
                     android:text="Entrar"
                     android:textColor="#ffff"
                     android:textStyle="bold"

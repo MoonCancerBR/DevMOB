@@ -13,7 +13,10 @@ import androidx.core.content.ContextCompat;
 import br.com.ufc.metafit.R;
 
 public class MenuAdmActivity extends AppCompatActivity {
-    CardView lista, caixa;
+    CardView lista, caixa
+            //edição abaixo
+    ,camera, delete;
+           //edição acima
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +24,45 @@ public class MenuAdmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu_adm);
         lista = findViewById(R.id.idvista);
         caixa = findViewById(R.id.idmapa);
+        //edição abaixo?//
+        camera = findViewById(R.id.idcamera);
+        delete = findViewById(R.id.idDelete);
+        //edição acima?//
 
         irLista();
         irMapa();
         getLocalizacao();
+
+        //edição abaixo?//
+        registro();
+        EliminaRegistro();
+        //edição acima?//
+
+    }
+//edição abaixo
+
+    private void EliminaRegistro() {
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent i = new Intent(MenuAdmActivity.this, EliminarProdutosActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
+    private void registro() {
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent i = new Intent(MenuAdmActivity.this, RegistrarProdutosActivity.class);
+                startActivity(i);
+            }
+        });
+    }
+//edição acima
     private void irLista() {
         lista.setOnClickListener(new View.OnClickListener() {
             @Override

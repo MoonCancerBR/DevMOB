@@ -6,7 +6,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.RecuperaActivity"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/colorPrimary">
+
 
     <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
@@ -23,7 +25,8 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@color/colorAccent">
 
             <TextView
                     android:layout_width="match_parent"
@@ -43,13 +46,13 @@
                     android:layout_marginBottom="20dp"
                     android:gravity="center"
                     android:textStyle="bold"
-                    android:textColorHint="#FF0015"
+                    android:textColorHint="@color/black"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:hint="Email"
                     app:counterTextColor="@android:color/background_light"
                     app:hintTextColor="@android:color/background_light"
-                    app:boxBackgroundColor="@android:color/holo_blue_light">
+                    app:boxBackgroundColor="@color/gray">
 
                 <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -57,7 +60,7 @@
                         android:id="@+id/gmail"
                         android:textStyle="bold"
                         android:textColor="@android:color/background_light"
-                        android:textColorHint="#FF0015"
+                        android:textColorHint="@color/black"
                         android:textColorLink="@android:color/background_light"
                         android:singleLine="true"
                         android:gravity="center_horizontal"
@@ -70,7 +73,7 @@
                     android:id="@+id/recuperar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/holo_blue_light"
+                    android:background="@color/black"
                     android:text="Recuperar Senha"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold"

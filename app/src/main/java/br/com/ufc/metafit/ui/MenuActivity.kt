@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
@@ -22,7 +21,6 @@ class MenuActivity : AppCompatActivity() {
     private lateinit var admin: CardView
     private lateinit var ofertas: CardView
     private lateinit var condicoes: CardView
-    private var alerta: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,23 +47,6 @@ class MenuActivity : AppCompatActivity() {
             startActivity(Intent(this, RulerActivity::class.java))
         }
 
-        getAlertaNotGps()
-    }
-
-    private fun getAlertaNotGps() {
-        val builder = AlertDialog.Builder(this)
-        builder.setMessage("Ative o GPS")
-            .setCancelable(false)
-            .setIcon(R.drawable.map)
-            .setTitle("GPS")
-            .setPositiveButton("Sim") { _, _ ->
-                startActivity(Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS))
-            }
-            .setNegativeButton("No") { dialog, _ ->
-                dialog.cancel()
-            }
-        alerta = builder.create()
-        alerta?.show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
