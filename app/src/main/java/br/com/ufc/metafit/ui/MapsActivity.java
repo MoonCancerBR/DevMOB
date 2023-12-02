@@ -42,6 +42,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private DatabaseReference databaseReference;
     private ArrayList<Marker> temporalRealTimeMarkers = new ArrayList<>();
     private ArrayList<Marker> realTimeMarkers = new ArrayList<>();
+    private Marker deliveryMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         LatLng ufc = new LatLng(-4.9793637, -39.0589341);
+        deliveryMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Delivery")
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_delivery)).anchor(0.0f, 0.0f));
         mMap.addMarker(new MarkerOptions().position(ufc).title("UFC")
                 .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_tenda)).anchor(0.0f, 0.0f));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(ufc));
@@ -64,13 +67,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 target(ufc).zoom(14).bearing(90).tilt(45).build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         mMap.setMyLocationEnabled(true);
@@ -79,35 +75,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                LatLng minhaLocalizacao = new LatLng(location.getLatitude(),location.getLongitude());
-                mMap.addMarker(new MarkerOptions().position(minhaLocalizacao).title("Delivery")
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_delivery)).anchor(0.0f,0.0f));
-            }
-            @Override
-            public void onStatusChanged(String provider, int status,Bundle extras){
-
+                LatLng minhaLocalizacao = new LatLng(location.getLatitude(), location.getLongitude());
+                if (deliveryMarker != null) {
+                    deliveryMarker.setPosition(minhaLocalizacao);
+                }
             }
 
             @Override
-            public void onProviderEnabled(String provider){
+            public void onStatusChanged(String provider, int status, Bundle extras) {
 
             }
 
             @Override
-            public void onProviderDisabled(String provider){
+            public void onProviderEnabled(String provider) {
 
             }
 
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
         };
         int permissao = ContextCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION);
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,locationListener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
         databaseReference.child("destinos").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(Marker dest:realTimeMarkers){
+                for (Marker dest : realTimeMarkers) {
                     dest.remove();
                 }
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Destinos dt = snapshot.getValue(Destinos.class);
                     Double latitud = dt.getLatitud();
                     Double longitud = dt.getLongitud();
@@ -116,7 +113,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     String caixa = "N caitxa" + codigo;
                     String telefone1 = "Tel." + telefone;
                     MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.position(new LatLng(latitud,longitud)).title(caixa).snippet(telefone1)
+                    markerOptions.position(new LatLng(latitud, longitud)).title(caixa).snippet(telefone1)
                             .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_entregas));
                     temporalRealTimeMarkers.add(mMap.addMarker(markerOptions));
                 }
