@@ -1,22 +1,15 @@
 package br.com.ufc.metafit.ui;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;;
-
+import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import br.com.ufc.metafit.R;
 
 public class MenuAdmActivity extends AppCompatActivity {
-    CardView lista, caixa
-            //edição abaixo
-    ,camera, delete;
-           //edição acima
+    CardView lista, caixa, camera, delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,28 +17,65 @@ public class MenuAdmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu_adm);
         lista = findViewById(R.id.idvista);
         caixa = findViewById(R.id.idmapa);
-        //edição abaixo?//
         camera = findViewById(R.id.idcamera);
         delete = findViewById(R.id.idDelete);
-        //edição acima?//
+
+        // Verifica se há uma sessão de autenticação válida ao abrir a atividade
+        if (!isAuthenticated()) {
+            redirectToLogin();
+        }
 
         irLista();
         irMapa();
-        getLocalizacao();
-
-        //edição abaixo?//
+        // Adicionado: chama os métodos relacionados ao registro e eliminação
         registro();
         EliminaRegistro();
-        //edição acima?//
-
     }
-//edição abaixo
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Realiza logout ao fechar o aplicativo
+        logout();
+    }
+
+    private boolean isAuthenticated() {
+        // Verifica se há uma sessão de autenticação válida
+        SharedPreferences preferences = getSharedPreferences("auth", MODE_PRIVATE);
+        return preferences.getBoolean("authenticated", false);
+    }
+
+    private void redirectToLogin() {
+        // Se não estiver autenticado, redireciona para a tela de login
+        Intent intent = new Intent(MenuAdmActivity.this, AdminActivity.class);
+        startActivity(intent);
+        finish(); // Encerra a atividade atual
+    }
+
+    private void irLista() {
+        lista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MenuAdmActivity.this, ListaCaixasActivity.class);
+                startActivity(i);
+            }
+        });
+    }
+
+    private void irMapa() {
+        caixa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MenuAdmActivity.this, MapsActivity.class);
+                startActivity(i);
+            }
+        });
+    }
 
     private void EliminaRegistro() {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent i = new Intent(MenuAdmActivity.this, EliminarProdutosActivity.class);
                 startActivity(i);
             }
@@ -56,55 +86,17 @@ public class MenuAdmActivity extends AppCompatActivity {
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent i = new Intent(MenuAdmActivity.this, RegistrarProdutosActivity.class);
                 startActivity(i);
             }
         });
     }
-//edição acima
-    private void irLista() {
-        lista.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Intent i = new Intent(MenuAdmActivity.this, ListaCaixasActivity.class);
-                startActivity(i);
-            }
-        });
+    private void logout() {
+        // Limpa a sessão ao fechar o aplicativo
+        SharedPreferences preferences = getSharedPreferences("auth", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove("authenticated");
+        editor.apply();
     }
-
-    private void irMapa(){
-        caixa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MenuAdmActivity.this, MapsActivity.class);
-                startActivity(i);
-            }
-        });
-    }
-//Possivel erro abaixo
-    private void getLocalizacao() {
-        int permissao = ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-        );
-        if (permissao == PackageManager.PERMISSION_DENIED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    this,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            ) {
-                // Explicar ao usuário por que a permissão é necessária (opcional)
-            } else {
-                // Solicitar permissão
-                ActivityCompat.requestPermissions(
-                        this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        1
-                );
-            }
-        }
-    }
-
 }
