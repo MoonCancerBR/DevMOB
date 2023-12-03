@@ -1,13 +1,38 @@
-<!-- activity_image_list.xml -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
         tools:context=".ui.OfertaActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+    <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-</RelativeLayout>
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/seuIdDoImageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:scaleType="centerCrop" />
+
+        <EditText
+                android:id="@+id/seuIdDoEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/seuIdDoImageView"
+                android:layout_marginTop="16dp"
+                android:hint="Digite o ID da imagem"
+                android:inputType="text" />
+
+        <Button
+                android:id="@+id/seuIdDoBotao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/seuIdDoEditText"
+                android:layout_centerHorizontal="true"
+                android:text="Carregar Imagem" />
+
+    </RelativeLayout>
+</ScrollView>

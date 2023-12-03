@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -39,14 +41,16 @@ public class RegistrarProdutosActivity extends AppCompatActivity {
     Uri imageUri;
     StorageReference storageReference;
     ProgressDialog progressDialog;
-    private StorageReference mStorageRef;
+    private DatabaseReference mDatabase;
     private String nomeImagem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registrar_produtos);
-        mStorageRef = FirebaseStorage.getInstance().getReference();
+
+        // Inicialize o Firebase Realtime Database
+        mDatabase = FirebaseDatabase.getInstance().getReference("produtos");
+
         binding = ActivityRegistrarProdutosBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -138,14 +142,26 @@ public class RegistrarProdutosActivity extends AppCompatActivity {
             progressDialog.setTitle("Carregando");
             progressDialog.show();
 
-            storageReference = FirebaseStorage.getInstance().getReference("images/" + nomeImagem);
+            storageReference = FirebaseStorage.getInstance().getReference("images/" + nomeImagem+".jpg");
             storageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    binding.firebaseimage.setImageURI(null);
-                    Toast.makeText(RegistrarProdutosActivity.this, "Sucesso", Toast.LENGTH_SHORT).show();
-                    if (progressDialog.isShowing())
-                        progressDialog.dismiss();
+                    // Obtenha a URL da imagem após o upload
+                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            // Crie um objeto Produto com informações da imagem
+                            Produto produto = new Produto(nomeImagem, uri.toString());
+
+                            // Envie as informações ao Firebase Realtime Database
+                            mDatabase.child(nomeImagem).setValue(produto);
+
+                            binding.firebaseimage.setImageURI(null);
+                            Toast.makeText(RegistrarProdutosActivity.this, "Sucesso", Toast.LENGTH_SHORT).show();
+                            if (progressDialog.isShowing())
+                                progressDialog.dismiss();
+                        }
+                    });
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
