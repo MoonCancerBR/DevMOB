@@ -1,14 +1,18 @@
 package br.com.ufc.metafit.ui;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,6 +40,7 @@ public class RegistrarProdutosActivity extends AppCompatActivity {
     StorageReference storageReference;
     ProgressDialog progressDialog;
     private StorageReference mStorageRef;
+    private String nomeImagem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +67,7 @@ public class RegistrarProdutosActivity extends AppCompatActivity {
         binding.btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadImage();
+                showEditImageNameDialog();
             }
         });
     }
@@ -87,23 +92,53 @@ public class RegistrarProdutosActivity extends AppCompatActivity {
         binding.firebaseimage.setImageBitmap(thumbnail);
     }
 
-    private Uri getImageUri(Context context, Bitmap bitmap) {
+    private Uri getImageUri(android.content.Context context, Bitmap bitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, "Title", null);
         return Uri.parse(path);
     }
 
+    private void showEditImageNameDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Editar Nome da Imagem");
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                nomeImagem = input.getText().toString();
+                uploadImage();
+            }
+        });
+
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
     private void uploadImage() {
         if (imageUri != null) {
+            if (TextUtils.isEmpty(nomeImagem)) {
+                // Se o nome da imagem estiver vazio, gere um nome único com timestamp
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
+                Date now = new Date();
+                nomeImagem = formatter.format(now);
+            }
+
             progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Carregando");
             progressDialog.show();
 
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.CANADA);
-            Date now = new Date();
-            String filename = formatter.format(now);
-            storageReference = FirebaseStorage.getInstance().getReference("images/" + filename);
+            storageReference = FirebaseStorage.getInstance().getReference("images/" + nomeImagem);
             storageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
