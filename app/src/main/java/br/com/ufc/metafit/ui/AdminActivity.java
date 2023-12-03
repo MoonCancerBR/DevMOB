@@ -20,7 +20,7 @@ import br.com.ufc.metafit.R;
 import io.github.muddz.styleabletoast.StyleableToast;
 
 public class AdminActivity extends AppCompatActivity {
-    ElasticCheckButton recuperar, btnEnviar;
+    ElasticCheckButton recuperar, btnEnviar, cadastrar;
     TextInputEditText gmail, password;
     private FirebaseAuth mAuth;
 
@@ -32,12 +32,14 @@ public class AdminActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         recuperar = findViewById(R.id.recuperar);
         btnEnviar = findViewById(R.id.btnEnviar);
+        cadastrar = findViewById(R.id.cadastrar);
 
         gmail = findViewById(R.id.gmail);
         password = findViewById(R.id.password);
 
         getRecuperar();
         loginAdmin();
+        getCadastrar();
     }
 
     private void limpar() {
@@ -79,4 +81,14 @@ public class AdminActivity extends AppCompatActivity {
             startActivity(i);
         });
     }
+
+    private void getCadastrar(){
+
+        cadastrar.setOnClickListener((v) -> {
+            Intent i = new Intent(AdminActivity.this, CadastroActivity.class);
+            startActivity(i);
+        });
+
+    }
+
 }

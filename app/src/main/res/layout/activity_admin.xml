@@ -146,6 +146,24 @@
                     app:checkButton_duration="400"
                     app:checkButton_scale="0.9"/>
 
+            <com.skydoves.elasticviews.ElasticCheckButton
+                    android:id="@+id/cadastrar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/black"
+                    android:text="Cadastra-se"
+                    android:textColor="#ffff"
+                    android:textStyle="bold"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_centerHorizontal="true"
+                    app:checkButton_cornerRadius="4dp"
+                    app:checkButton_alpha="0.7"
+                    app:checkButton_duration="400"
+                    app:checkButton_scale="0.9"/>
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

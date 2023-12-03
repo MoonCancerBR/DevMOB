@@ -92,4 +92,5 @@ class MenuActivity : AppCompatActivity() {
             else -> return super.onOptionsItemSelected(item)
         }
     }
+    
 }
