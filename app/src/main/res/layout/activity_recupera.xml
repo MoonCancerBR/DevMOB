@@ -40,6 +40,16 @@
                     android:layout_marginEnd="15dp"
                     android:textSize="20dp"/>
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:id="@+id/imagemCadastro"
+                    android:src="@drawable/persona1"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="@color/black"/>
+
             <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
