@@ -33,18 +33,15 @@ public class MenuAdmActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Realiza logout ao fechar o aplicativo
         logout();
     }
 
     private boolean isAuthenticated() {
-        // Verifica se há uma sessão de autenticação válida
         SharedPreferences preferences = getSharedPreferences("auth", MODE_PRIVATE);
         return preferences.getBoolean("authenticated", false);
     }
 
     private void redirectToLogin() {
-        // Se não estiver autenticado, redireciona para a tela de login
         Intent intent = new Intent(MenuAdmActivity.this, AdminActivity.class);
         startActivity(intent);
         finish(); // Encerra a atividade atual
@@ -91,7 +88,6 @@ public class MenuAdmActivity extends AppCompatActivity {
     }
 
     private void logout() {
-        // Limpa a sessão ao fechar o aplicativo
         SharedPreferences preferences = getSharedPreferences("auth", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.remove("authenticated");
