@@ -20,14 +20,12 @@ public class MenuAdmActivity extends AppCompatActivity {
         camera = findViewById(R.id.idcamera);
         delete = findViewById(R.id.idDelete);
 
-        // Verifica se há uma sessão de autenticação válida ao abrir a atividade
         if (!isAuthenticated()) {
             redirectToLogin();
         }
 
         irLista();
         irMapa();
-        // Adicionado: chama os métodos relacionados ao registro e eliminação
         registro();
         EliminaRegistro();
     }
