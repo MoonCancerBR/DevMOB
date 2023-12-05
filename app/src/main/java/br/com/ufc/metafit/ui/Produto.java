@@ -7,7 +7,7 @@ public class Produto {
     private String imageUrl;
 
     public Produto() {
-        // Construtor padrão necessário para o Firebase Realtime Database
+        
     }
 
     public Produto(String nome, String imageUrl) {
