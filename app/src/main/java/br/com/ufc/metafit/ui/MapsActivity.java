@@ -9,13 +9,9 @@ import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
-
-import br.com.ufc.metafit.R;
-import br.com.ufc.metafit.databinding.ActivityMapsBinding;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -31,18 +27,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.InstanceCreator;
 
 import java.util.ArrayList;
 
+import br.com.ufc.metafit.R;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
-    private LocationManager locationManager;
-    private Location currentLocation;
     private DatabaseReference databaseReference;
     private ArrayList<Marker> temporalRealTimeMarkers = new ArrayList<>();
     private ArrayList<Marker> realTimeMarkers = new ArrayList<>();
-    private Marker deliveryMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +52,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         LatLng ufc = new LatLng(-4.9793637, -39.0589341);
-        deliveryMarker = mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Delivery")
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_delivery)).anchor(0.0f, 0.0f));
         mMap.addMarker(new MarkerOptions().position(ufc).title("UFC")
                 .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_tenda)).anchor(0.0f, 0.0f));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(ufc));
@@ -75,25 +67,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                LatLng minhaLocalizacao = new LatLng(location.getLatitude(), location.getLongitude());
-                if (deliveryMarker != null) {
-                    deliveryMarker.setPosition(minhaLocalizacao);
-                }
             }
 
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
-
             }
 
             @Override
             public void onProviderEnabled(String provider) {
-
             }
 
             @Override
             public void onProviderDisabled(String provider) {
-
             }
         };
         int permissao = ContextCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -123,7 +108,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }

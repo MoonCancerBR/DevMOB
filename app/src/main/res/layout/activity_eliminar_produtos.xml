@@ -1,17 +1,30 @@
-<!-- res/layout/activity_lista_produtos.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="16dp"
-        android:paddingTop="16dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="16dp"
-        tools:context=".ui.EliminarProdutosActivity">
+        android:layout_height="match_parent">
+
+    <ImageView
+            android:id="@+id/imagePreview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            android:scaleType="centerCrop"/>
 
     <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btnExcluirProduto"
+            android:choiceMode="singleChoice" />
+
+    <Button
+            android:id="@+id/btnExcluirProduto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Excluir Produto"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="16dp" />
 
 </RelativeLayout>

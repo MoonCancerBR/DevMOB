@@ -1,4 +1,6 @@
-package br.com.ufc.metafit.ui;import android.content.Intent;
+package br.com.ufc.metafit.ui;
+
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -39,6 +41,9 @@ public class AdminActivity extends AppCompatActivity {
         getRecuperar();
         loginAdmin();
         getCadastrar();
+
+        // Verifica se o usuário já fez login anteriormente
+        checkAndRedirect();
     }
 
     private void limpar() {
@@ -63,12 +68,13 @@ public class AdminActivity extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 StyleableToast.makeText(getApplicationContext(), "Credenciais Incorretas", Toast.LENGTH_LONG, R.style.AllStyles).show();
                             } else {
-                                // Salvar a informação de autenticação no SharedPreferences
+                                // Salva a sessão de autenticação
                                 salvarSessaoAutenticacao(true);
 
+                                // Direciona para MenuAdmActivity
                                 Intent i = new Intent(AdminActivity.this, MenuAdmActivity.class);
                                 startActivity(i);
-                                finish(); // Encerra a atividade atual
+                                finish();
                             }
                         }
                     });
@@ -97,5 +103,18 @@ public class AdminActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("authenticated", autenticado);
         editor.apply();
+    }
+
+    private void checkAndRedirect() {
+        // Verifica se o usuário já fez login anteriormente
+        SharedPreferences preferences = getSharedPreferences("auth", MODE_PRIVATE);
+        boolean isLoggedIn = preferences.getBoolean("authenticated", false);
+
+        if (isLoggedIn) {
+            // Se o login foi feito, direciona para MenuAdmActivity
+            Intent i = new Intent(AdminActivity.this, MenuAdmActivity.class);
+            startActivity(i);
+            finish();  // Isso evita que o usuário volte para o AdminActivity ao pressionar o botão "Voltar"
+        }
     }
 }

@@ -119,9 +119,7 @@ class CaixaActivity : AppCompatActivity() {
                     Manifest.permission.ACCESS_FINE_LOCATION
                 )
             ) {
-                // Explicar ao usuário por que a permissão é necessária (opcional)
             } else {
-                // Solicitar permissão
                 ActivityCompat.requestPermissions(
                     this,
                     arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),

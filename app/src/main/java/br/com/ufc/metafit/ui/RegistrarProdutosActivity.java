@@ -48,7 +48,6 @@ public class RegistrarProdutosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Inicialize o Firebase Realtime Database
         mDatabase = FirebaseDatabase.getInstance().getReference("produtos");
 
         binding = ActivityRegistrarProdutosBinding.inflate(getLayoutInflater());
@@ -132,7 +131,6 @@ public class RegistrarProdutosActivity extends AppCompatActivity {
     private void uploadImage() {
         if (imageUri != null) {
             if (TextUtils.isEmpty(nomeImagem)) {
-                // Se o nome da imagem estiver vazio, gere um nome único com timestamp
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
                 Date now = new Date();
                 nomeImagem = formatter.format(now);
@@ -146,14 +144,13 @@ public class RegistrarProdutosActivity extends AppCompatActivity {
             storageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    // Obtenha a URL da imagem após o upload
+
                     storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            // Crie um objeto Produto com informações da imagem
                             Produto produto = new Produto(nomeImagem, uri.toString());
 
-                            // Envie as informações ao Firebase Realtime Database
+
                             mDatabase.child(nomeImagem).setValue(produto);
 
                             binding.firebaseimage.setImageURI(null);

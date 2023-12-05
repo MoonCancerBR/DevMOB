@@ -1,4 +1,7 @@
 package br.com.ufc.metafit.ui;
+
+import androidx.annotation.NonNull;
+
 public class Produto {
     private String nome;
     private String imageUrl;
@@ -18,5 +21,11 @@ public class Produto {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return nome;
     }
 }

@@ -15,8 +15,6 @@ class RulerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ruler)
 
-        //edições abaixo
-
         val database = FirebaseDatabase.getInstance()
 
         val myref1: DatabaseReference = database.getReference("informacao").child("titulo1")

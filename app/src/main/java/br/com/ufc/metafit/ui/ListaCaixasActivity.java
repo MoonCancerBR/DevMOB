@@ -26,7 +26,6 @@ public class ListaCaixasActivity extends AppCompatActivity{
 
     RecyclerView recyclerView;
     public static List<Destinos> destinosList = new ArrayList<Destinos>();
-    //FirebaseRecyclerAdapter<Destinos,DestinosAdapter.ViewHolder> adapter;
     DestinosAdapter adapter;
     DatabaseReference databaseReference;
     @Override
@@ -39,14 +38,14 @@ public class ListaCaixasActivity extends AppCompatActivity{
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        //final List<Destinos> destinosList = new ArrayList<Destinos>();
+        final List<Destinos> destinosList = new ArrayList<Destinos>();
 
-        // Aqui você adiciona o código para buscar e preencher os dados do Firebase
+
         databaseReference.child("destinos").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                ListaCaixasActivity.destinosList.clear(); // Limpa a lista antes de preenchê-la novamente
+                ListaCaixasActivity.destinosList.clear();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Destinos destino = snapshot.getValue(Destinos.class);
@@ -55,8 +54,8 @@ public class ListaCaixasActivity extends AppCompatActivity{
                     }
                 }
 
-                // Aqui, a lista destinosLista está preenchida com os dados do Firebase
-                configurarAdapter(); // Configura o FirebaseRecyclerAdapter após preencher a lista
+
+                configurarAdapter();
             }
 
             @Override
@@ -69,17 +68,13 @@ public class ListaCaixasActivity extends AppCompatActivity{
     private void configurarAdapter() {
         DestinosAdapter adapter = new DestinosAdapter(this,ListaCaixasActivity.destinosList);
         recyclerView.setAdapter(adapter);
-        //listaCaixa
         adapter.setOnDeleteClickListener(new DestinosAdapter.OnDeleteClickListener() {
             @Override
             public void onDeleteClick(int position) {
-                // Remova o item da lista
                 Destinos destinoRemovido = ListaCaixasActivity.destinosList.remove(position);
 
-                // Atualize o RecyclerView
                 adapter.notifyItemRemoved(position);
 
-                // Remova do Firebase, substitua "chaveDoDestino" pela chave do item no Firebase
                 databaseReference.child("destinos").child(destinoRemovido.getCodigo()).removeValue();
             }
         });

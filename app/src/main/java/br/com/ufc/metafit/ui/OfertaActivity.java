@@ -56,6 +56,10 @@ public class OfertaActivity extends AppCompatActivity {
 
         loadProdutos();
 
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+
+        });
+
         binding.seuIdDoBotao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +82,6 @@ public class OfertaActivity extends AppCompatActivity {
                                         progressDialog.dismiss();
 
                                     Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                                    // Substitua R.id.seuIdDoImageView pelo ID correto do seu ImageView no XML
                                     binding.seuIdDoImageView.setImageBitmap(bitmap);
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
