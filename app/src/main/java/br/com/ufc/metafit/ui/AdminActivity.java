@@ -1,7 +1,5 @@
 package br.com.ufc.metafit.ui;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -41,8 +39,6 @@ public class AdminActivity extends AppCompatActivity {
         getRecuperar();
         loginAdmin();
         getCadastrar();
-
-        checkAndRedirect();
     }
 
     private void limpar() {
@@ -67,12 +63,12 @@ public class AdminActivity extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 StyleableToast.makeText(getApplicationContext(), "Credenciais Incorretas", Toast.LENGTH_LONG, R.style.AllStyles).show();
                             } else {
-
+                                // Salvar a informação de autenticação no SharedPreferences
                                 salvarSessaoAutenticacao(true);
 
                                 Intent i = new Intent(AdminActivity.this, MenuAdmActivity.class);
                                 startActivity(i);
-                                finish();
+                                finish(); // Encerra a atividade atual
                             }
                         }
                     });
@@ -101,16 +97,5 @@ public class AdminActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("authenticated", autenticado);
         editor.apply();
-    }
-
-    private void checkAndRedirect() {
-        SharedPreferences preferences = getSharedPreferences("auth", MODE_PRIVATE);
-        boolean isLoggedIn = preferences.getBoolean("authenticated", false);
-
-        if (isLoggedIn) {
-            Intent i = new Intent(AdminActivity.this, MenuAdmActivity.class);
-            startActivity(i);
-            finish();
-        }
     }
 }
