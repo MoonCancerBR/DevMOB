@@ -2,22 +2,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+    <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Excluir produto"
+            android:textSize="20sp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"/>
 
     <ImageView
             android:id="@+id/imagePreview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_height="300dp"
+            android:layout_below="@+id/textViewTitle"
+            android:layout_marginTop="32dp"
             android:visibility="gone"
-            android:scaleType="centerCrop"/>
-
+            android:scaleType="fitCenter"/>
     <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/imagePreview"
             android:layout_above="@+id/btnExcluirProduto"
+            android:layout_marginTop="16dp"
             android:choiceMode="singleChoice" />
-
     <Button
             android:id="@+id/btnExcluirProduto"
             android:layout_width="wrap_content"

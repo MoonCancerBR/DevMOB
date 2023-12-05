@@ -42,7 +42,6 @@ public class AdminActivity extends AppCompatActivity {
         loginAdmin();
         getCadastrar();
 
-        // Verifica se o usuário já fez login anteriormente
         checkAndRedirect();
     }
 
@@ -68,10 +67,9 @@ public class AdminActivity extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 StyleableToast.makeText(getApplicationContext(), "Credenciais Incorretas", Toast.LENGTH_LONG, R.style.AllStyles).show();
                             } else {
-                                // Salva a sessão de autenticação
+
                                 salvarSessaoAutenticacao(true);
 
-                                // Direciona para MenuAdmActivity
                                 Intent i = new Intent(AdminActivity.this, MenuAdmActivity.class);
                                 startActivity(i);
                                 finish();
@@ -106,15 +104,13 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     private void checkAndRedirect() {
-        // Verifica se o usuário já fez login anteriormente
         SharedPreferences preferences = getSharedPreferences("auth", MODE_PRIVATE);
         boolean isLoggedIn = preferences.getBoolean("authenticated", false);
 
         if (isLoggedIn) {
-            // Se o login foi feito, direciona para MenuAdmActivity
             Intent i = new Intent(AdminActivity.this, MenuAdmActivity.class);
             startActivity(i);
-            finish();  // Isso evita que o usuário volte para o AdminActivity ao pressionar o botão "Voltar"
+            finish();
         }
     }
 }
